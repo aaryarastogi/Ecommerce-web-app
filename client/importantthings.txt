@@ -1,0 +1,9 @@
+div -> box
+p -> typography
+&nbsp -> gives space
+If we want to use span tag then we have to use typography tag in which we put span value in component 
+margin: top right bottom left
+Fragment is just like div but it is faster than div as it doesnot create different node.
+axios package is used for calling an API
+thunk is middleware
+redux is used for frontend database
