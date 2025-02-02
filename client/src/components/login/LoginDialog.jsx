@@ -148,7 +148,7 @@ const LoginDialog = ({open , setOpen}) => {
                     error && <Error>Please Enter valid username or password</Error>
                 }
 
-                <TextField variant='standard' onChange={(e)=>onValueChange(e)} name='password' label='Enter Password'></TextField>
+                <TextField variant='standard' onChange={(e)=>onValueChange(e)} name='password' label='Enter Password' type='password'></TextField>
                 <Text>By continuing, you agree to Cartify's Terms of Use and Privacy Policy.</Text>
                 <LoginButton onClick={()=>loginUser()}>Login</LoginButton>
                 <Typography style={{textAlign:'center'}}>OR</Typography>
@@ -161,7 +161,7 @@ const LoginDialog = ({open , setOpen}) => {
                 <TextField variant='standard' onChange={(e)=>onInputChange(e)} name='lastname' label='Enter Lastname'></TextField>
                 <TextField variant='standard' onChange={(e)=>onInputChange(e)} name='username' label='Enter Username'></TextField>
                 <TextField variant='standard' onChange={(e)=>onInputChange(e)} name='email' label='Enter Email'></TextField>
-                <TextField variant='standard' onChange={(e)=>onInputChange(e)} name='password' label='Enter Password'></TextField>
+                <TextField variant='standard' onChange={(e)=>onInputChange(e)} name='password' label='Enter Password' type='password'></TextField>
                 <TextField variant='standard' onChange={(e)=>onInputChange(e)} name='phone' label='Enter Phone'></TextField>
                 <LoginButton onClick={signupUser}>Continue</LoginButton>
             </Wrapper>

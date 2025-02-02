@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 export const Connection=async(username,pwd)=>{
-    const URL= `mongodb+srv://${username}:${pwd}@ecommerce.g4wfc1b.mongodb.net/?retryWrites=true&w=majority`;
+    const URL= `mongodb+srv://${username}:${pwd}@ecommerce.g4wfc1b.mongodb.net/?retryWrites=true&w=majority&appName=Ecommerce`;
     try {
         await mongoose.connect(URL,{});
         console.log('connected to mongodb')
