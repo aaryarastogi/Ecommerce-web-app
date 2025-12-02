@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const backend_url='http://localhost:8000';
+export const backend_url='https://ecommerce-web-app-backend-ea95.onrender.com';
 export const authenticateSignUp=async(user)=>{
     try {
        return await axios.post(`${backend_url}/signup`,user);
