@@ -1,14 +1,14 @@
 import axios from 'axios'
 import * as actionType from '../constants/cartConstants'
+import { backend_url } from '../../service/api';
 
 
 export const addToCart=(id , quantity)=>async(dispatch)=>{
     try {
-        const {data} = await axios.get(`http://localhost:8000/product/${id}`);
+        const {data} = await axios.get(`${backend_url}/product/${id}`);
 
         dispatch({type:actionType.ADD_TO_CART , payload:{...data , quantity}})
     } catch (error) {
-        // dispatch({type:actionType.ADD_TO_CART_ERROR , payload: error.message})
         console.log("error while adding item ")
     }
 }

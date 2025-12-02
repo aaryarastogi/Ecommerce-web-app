@@ -6,11 +6,8 @@ import {Box, Grid, Typography, styled} from '@mui/material'
 import ActionItem from "./ActionItem";
 import ProductDetail from "./ProductDetail";
 
-
-//styling
 const Component=styled(Box)`
     background: transparent;
-    margin-top:80px;
     min-height: calc(100vh - 80px);
     padding: 40px 20px;
 `
@@ -22,7 +19,6 @@ const Container=styled(Grid)(({theme})=>({
     border: '1px solid rgba(255, 255, 255, 0.1)',
     boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
     overflow: 'hidden',
-    margin: '0 20px',
     [theme.breakpoints.down('md')]:{
         margin:'0 10px',
         borderRadius: '20px',

@@ -4,6 +4,7 @@ import { DataContext } from '../../context/DataProvider';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import { backend_url } from '../../service/api';
 
 const StyledContainer = styled(Container)(({ theme }) => ({
     padding: '50px 20px',
@@ -76,7 +77,7 @@ const Orders = () => {
             setLoading(true);
             setError('');
             console.log('Fetching orders for user:', user.username);
-            const response = await axios.get(`http://localhost:8000/api/orders?username=${user.username}`);
+            const response = await axios.get(`${backend_url}/api/orders?username=${user.username}`);
             
             console.log('Orders API response:', response.data);
             
@@ -235,4 +236,3 @@ const Orders = () => {
 };
 
 export default Orders;
-

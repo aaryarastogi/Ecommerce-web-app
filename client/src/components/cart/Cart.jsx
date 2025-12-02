@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CartItem from "./CartItem";
 import TotalBalance from "./TotalBalance";
 import EmptyCart from "./EmptyCart";
-import { payUsingPaytm } from "../../service/api";
+import { backend_url, payUsingPaytm } from "../../service/api";
 import { post } from "../../utils/paytm";
 import axios from 'axios'
 import { useState, useContext } from "react";
@@ -86,9 +86,9 @@ const Cart=()=>{
                 return;
             }
 
-            const { data: {key} } = await axios.get("http://localhost:8000/api/getkey")
+            const { data: {key} } = await axios.get(`${backend_url}/api/getkey`)
 
-            const { data : {order} } = await axios.post("http://localhost:8000/api/checkout",{
+            const { data : {order} } = await axios.post(`${backend_url}/api/checkout`,{
                 amount: amount
             })
             
@@ -108,7 +108,7 @@ const Cart=()=>{
                 description: "E-commerce Transaction",
                 image: "https://yt3.ggpht.com/EdRqWnGF_Ezgskw0k3GwJEiiEx4mpYyW5T_Q2bt_zbPMqk8qgoT8YjVuI_EGTAUVWWVbtg8kVCE=s108-c-k-c0x00ffffff-no-rj",
                 order_id: order.id,
-                callback_url: "http://localhost:8000/api/paymentverification",
+                callback_url: `${backend_url}/api/paymentverification`,
                 prefill: {
                     name: "Gaurav Kumar",
                     email: "gaurav.kumar@example.com",
@@ -139,7 +139,7 @@ const Cart=()=>{
                     // Send user info directly to backend to ensure order is saved
                     if (user && user.username && response.razorpay_payment_id) {
                         try {
-                            const updateResponse = await axios.post("http://localhost:8000/api/update-payment", {
+                            const updateResponse = await axios.post(`${backend_url}/api/update-payment`, {
                                 payment_id: response.razorpay_payment_id,
                                 razorpay_order_id: response.razorpay_order_id || orderId,
                                 razorpay_signature: response.razorpay_signature || 'pending',
@@ -158,8 +158,6 @@ const Cart=()=>{
                     } else {
                         console.warn("User not logged in or payment_id missing. User:", user, "Payment ID:", response.razorpay_payment_id);
                     }
-                    // The payment verification will be handled by the callback_url
-                    // User will be redirected to payment success page
                 }
             };
             

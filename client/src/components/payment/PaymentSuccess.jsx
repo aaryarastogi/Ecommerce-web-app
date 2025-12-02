@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { resetCart } from "../../redux/actions/cartActions";
 import { DataContext } from "../../context/DataProvider";
 import axios from "axios";
+import { backend_url } from "../../service/api";
 
 const Container=styled(Box)`
     height: 100vh;
@@ -99,7 +100,7 @@ const PaymentSuccess=()=>{
                         updateData.amount = parseFloat(orderAmount);
                     }
                     
-                    const response = await axios.post("http://localhost:8000/api/update-payment", updateData);
+                    const response = await axios.post(`${backend_url}/api/update-payment`, updateData);
                     console.log("Payment updated with user info:", response.data);
                 } catch (error) {
                     console.error("Error updating payment info:", error);
