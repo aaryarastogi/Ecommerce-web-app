@@ -28,11 +28,13 @@ export const instance = new Razorpay({
     key_secret: process.env.RAZORPAY_SECRET,
   });
 
+app.get("/",(req,res)=>{
+    res.send("Server is live!!!")
+})
 
 app.get("/api/getkey",(req,res)=>res.status(200).json({
   key: process.env.RAZORPAY_KEY
 }))
-
 
 //creating server
 app.listen(PORT,()=>console.log(`Server is succesfully running on port ${PORT}hello`));
