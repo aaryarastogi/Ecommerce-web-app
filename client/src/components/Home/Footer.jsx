@@ -2,12 +2,17 @@ import { Box, Divider, Grid, List, ListItem, Typography, styled } from "@mui/mat
 import CopyrightIcon from '@mui/icons-material/Copyright';
 
 const Component=styled(Box)(({theme})=>({
-    backgroundColor:'#222222',
+    background: 'rgba(26, 31, 58, 0.8)',
+    backdropFilter: 'blur(20px)',
     width:'100%',
     height:'auto',
-    marginTop:'10px',
+    marginTop:'60px',
     color:'white',
-    justifyContent:'space-around'
+    justifyContent:'space-around',
+    borderRadius: '24px 24px 0 0',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    borderBottom: 'none',
+    boxShadow: '0 -8px 32px rgba(0, 0, 0, 0.3)'
 }))
 
 const Heading=styled(Typography)(({theme})=>({
@@ -62,8 +67,8 @@ const Footer=()=>{
                     </Container>
                 </Grid>
             </Grid>
-            <Divider style={{backgroundColor:'gray' , margin:'5px 10px'}}/>
-            <Typography style={{fontSize:'14px' , textAlign:'center' , paddingBottom:'5px' }}>Copyright <CopyrightIcon style={{fontSize:14 , marginTop:'2px'}}/> 2022 &nbsp; &nbsp;~ Aarya Rastogi </Typography>
+            <Divider style={{backgroundColor:'rgba(255,255,255,0.2)' , margin:'20px 40px'}}/>
+            <Typography style={{fontSize:'14px' , textAlign:'center' , paddingBottom:'20px', opacity: 0.9 }}>Copyright <CopyrightIcon style={{fontSize:14 , marginTop:'2px'}}/> 2024 &nbsp; &nbsp;~ Aarya Rastogi </Typography>
         </Component>
     )
 }

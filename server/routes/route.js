@@ -1,7 +1,7 @@
 import express from 'express'
 import { userSignup , userLogin } from '../controller/user-controller.js';
 import { getProducts , getProductById } from '../controller/product-controller.js';
-import { checkout , paymentVerification} from '../controller/payment-controller.js';
+import { checkout , paymentVerification, getUserOrders, updatePaymentUserInfo} from '../controller/payment-controller.js';
 
 const router=express.Router();
 router.post('/signup',userSignup);
@@ -16,6 +16,8 @@ router.get('/product/:id', getProductById);
 // router.post('/callback', paytmResponse);
 
 router.route("/api/checkout").post(checkout);
-router.route("/api/paymentverification").post(paymentVerification)
+router.route("/api/paymentverification").post(paymentVerification);
+router.route("/api/orders").get(getUserOrders);
+router.route("/api/update-payment").post(updatePaymentUserInfo);
 
 export default router;

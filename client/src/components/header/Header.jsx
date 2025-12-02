@@ -7,14 +7,29 @@ import CustomButtons from './CustomButtons';
 import { Link } from 'react-router-dom';
 
 const StyledHeader=styled(AppBar)`
-    background:#222222;
-    height:55px;
+    background: rgba(10, 14, 39, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height:80px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 `
 const Component=styled(Link)`
     margin-left:12%;
     line-height:0;
     text-decoration:none;
     color:inherit;
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.3s ease;
+    &:hover {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+    }
 `
 
 const SubHeading=styled(Typography)`
@@ -67,8 +82,8 @@ const Header = () => {
     );
 
   return (
-    <StyledHeader>
-        <Toolbar style={{minHeight:'55px'}}>
+    <StyledHeader position="sticky" elevation={0}>
+        <Toolbar style={{minHeight:'80px', padding: '0 40px'}}>
 
             <MenuButton style={{color:'inherit'}} onClick={handleOpen}>
                 <MenuIcon/>

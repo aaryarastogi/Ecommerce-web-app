@@ -9,19 +9,29 @@ import ProductDetail from "./ProductDetail";
 
 //styling
 const Component=styled(Box)`
-    background:#F2F2F2;
-    margin-top:55px;
+    background: transparent;
+    margin-top:80px;
+    min-height: calc(100vh - 80px);
+    padding: 40px 20px;
 `
 const Container=styled(Grid)(({theme})=>({
-    background:'#FFFFFF',
+    background:'rgba(26, 31, 58, 0.6)',
+    backdropFilter: 'blur(20px)',
     display:'flex',
+    borderRadius: '24px',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+    overflow: 'hidden',
+    margin: '0 20px',
     [theme.breakpoints.down('md')]:{
-        margin:0
+        margin:'0 10px',
+        borderRadius: '20px',
     }
 }))
     
 const RightCont=styled(Grid)`
     margin-top:50px;
+    padding: 30px;
 `
 
 const DetailView=()=>{

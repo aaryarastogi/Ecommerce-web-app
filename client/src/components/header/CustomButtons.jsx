@@ -33,24 +33,26 @@ const Container=styled(Link)(({theme})=>({
 }))
     
 const LoginButton=styled(Button)({
-    color:'#434242',
-    background:'white',
+    color:'white',
+    background: 'linear-gradient(135deg, #ff6b9d 0%, #c44569 100%)',
     textTransform:'none',
-    padding:'5px 40px',
-    borderRadius:'2px',
-    boxShadow:'none',
+    padding:'10px 36px',
+    borderRadius:'12px',
+    boxShadow:'0 4px 20px rgba(255, 107, 157, 0.3)',
     fontWeight:'600',
-    height:'32px',
+    height:'44px',
     marginLeft:'40px',
+    transition: 'all 0.3s ease',
     "&:hover": {
-        color: "white",
-        backgroundColor:"#434242"
+        background: 'linear-gradient(135deg, #c44569 0%, #ff6b9d 100%)',
+        transform: 'translateY(-2px)',
+        boxShadow:'0 6px 30px rgba(255, 107, 157, 0.4)',
     },
 })
     
 const CustomButtons = () => {
     const[open,setOpen]=useState(false);
-    const {account , setAccount}=useContext(DataContext);
+    const {account , setAccount, setUser}=useContext(DataContext);
 
     const {cartItems} = useSelector(state=>state.cart);
 
@@ -60,7 +62,7 @@ const CustomButtons = () => {
   return (
     <Wrapper>
         {
-            account ? <Profile account={account} setAccount={setAccount}/> :
+            account ? <Profile account={account} setAccount={setAccount} setUser={setUser}/> :
             <LoginButton variant='contained' onClick={()=>handleLogin()}>Login</LoginButton>
         }
         <Typography style={{marginTop: 3 , width:135}}>What's new</Typography>

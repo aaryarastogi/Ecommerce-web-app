@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Box, Menu, MenuItem, Typography } from "@mui/material"
 import { useState } from "react"
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import { Link } from 'react-router-dom';
 
 //styling
 const Component=styled(Menu)`
@@ -12,7 +13,7 @@ const Logout=styled(Typography)`
     margin-left:20px;
 `
 
-const Profile=({account , setAccount})=>{
+const Profile=({account , setAccount, setUser})=>{
     const[open,setOpen]=useState(false);
     const handleClick=(event)=>{
         setOpen(event.currentTarget)
@@ -22,6 +23,7 @@ const Profile=({account , setAccount})=>{
     }
     const logoutUser=()=>{
         setAccount('');
+        setUser(null);
     }
     return(
         <>
@@ -31,6 +33,9 @@ const Profile=({account , setAccount})=>{
                 open={Boolean(open)}
                 onClose={handleClose}
                 >
+                <MenuItem component={Link} to="/orders" onClick={handleClose}>
+                    <Typography>My Orders</Typography>
+                </MenuItem>
                 <MenuItem onClick={()=>{handleClose();logoutUser();}}>
                     <PowerSettingsNewIcon color="primary" fontSize="small"/>
                     <Logout>Logout</Logout>

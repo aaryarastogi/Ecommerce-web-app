@@ -12,8 +12,12 @@ import Brands from './Brands'
 import Footer from './Footer'
 
 const Container=styled(Box)`
-  padding:10px;
-  background:#F2F2F2;
+  padding:40px;
+  background: transparent;
+  min-height: calc(100vh - 80px);
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `
 
 const Home = () => {

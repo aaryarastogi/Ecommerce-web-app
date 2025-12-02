@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import DetailView from './components/Details/DetailView';
 import Cart from './components/cart/Cart';
 import PaymentSuccess from './components/payment/PaymentSuccess';
+import Orders from './components/orders/Orders';
 import axios from 'axios';
 
 
@@ -15,12 +16,13 @@ function App() {
     <DataProvider>
       <BrowserRouter>
         <Header/>
-        <Box style={{marginTop:'54px'}}>
+        <Box style={{marginTop:'80px'}}>
           <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/product/:id' element={<DetailView/>} />
             <Route path='/cart' element={<Cart amount={3000}/>} />
             <Route path='/paymentsuccess' element={<PaymentSuccess/>}/>
+            <Route path='/orders' element={<Orders/>}/>
           </Routes>
         </Box>
       </BrowserRouter>

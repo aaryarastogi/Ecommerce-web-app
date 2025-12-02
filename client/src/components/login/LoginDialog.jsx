@@ -7,60 +7,107 @@ import { DataContext } from '../../context/DataProvider'
 const Container=styled(Box)`
     height:70vh;
     width:90vh;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 `
 const Image=styled(Box)`
-    background:#434242;
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.2) 0%, rgba(196, 69, 105, 0.2) 100%);
+    backdrop-filter: blur(20px);
     height:83%;
     width:28%;
     padding:45px 35px;
     color:white;
     font-weight:600;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
 `
 const Wrapper=styled(Box)`
     display:flex;
     flex-direction:column;
-    padding:25px 35px;
+    padding:40px 50px;
     flex:1;
+    background: rgba(26, 31, 58, 0.8);
+    backdrop-filter: blur(20px);
     & > div , & > button , & > p{
         margin-top:20px;
+    }
+    & .MuiTextField-root {
+        & .MuiInputBase-root {
+            color: rgba(255, 255, 255, 0.9);
+            &::before {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            }
+            &:hover::before {
+                border-bottom: 1px solid rgba(255, 107, 157, 0.5);
+            }
+        }
+        & .MuiInputLabel-root {
+            color: rgba(255, 255, 255, 0.6);
+        }
     }
 `
 const LoginButton=styled(Button)({
     textTransform:'none',
-    background:'#FB641B',
-    height:'48px',
-    borderRadius:'2px',
+    background: 'linear-gradient(135deg, #ff6b9d 0%, #c44569 100%)',
+    height:'52px',
+    borderRadius:'15px',
     color:'#fff',
+    fontSize: '17px',
+    fontWeight: 600,
+    boxShadow: '0 8px 30px rgba(255, 107, 157, 0.4)',
+    transition: 'all 0.3s ease',
     "&:hover":{
-        backgroundColor:"#ff6905"
+        background: 'linear-gradient(135deg, #c44569 0%, #ff6b9d 100%)',
+        transform: 'translateY(-3px)',
+        boxShadow: '0 12px 40px rgba(255, 107, 157, 0.5)'
     }
 })
     
 const RequestOTPButton=styled(Button)`
     text-transform:none;
-    background:#fff;
+    background:rgba(255, 255, 255, 0.05);
     height:48px;
-    border-radius:2px;
-    color:#2874f0;
-    box-shadow:0 2px 4px 0 rgb(0 0 0/ 20%);
+    border-radius:15px;
+    color:white;
+    border: 2px solid rgba(255, 107, 157, 0.3);
+    box-shadow:0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    &:hover {
+        background: rgba(255, 107, 157, 0.1);
+        border-color: rgba(255, 107, 157, 0.5);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 107, 157, 0.3);
+    }
 `
 const Text=styled(Typography)`
     font-size:12px;
-    color:#878787;
+    color:rgba(255, 255, 255, 0.6);
 `
 const CreateAccount=styled(Typography)`
     font-size:14px;
     text-align:center;
     font-weight:600;
-    color:#2874f0;
+    color:#ff6b9d;
     cursor:pointer;
+    transition: all 0.2s ease;
+    &:hover {
+        color: #c44569;
+        transform: scale(1.05);
+    }
 `
 const Error = styled(Typography)`
-    font-size:10px;
-    color:#ff6161;
-    line-height:0;
+    font-size:12px;
+    color:#ff6b9d;
+    line-height:1.5;
     margin-top:10px;
     font-weight:600;
+    padding: 10px;
+    background: rgba(255, 107, 157, 0.1);
+    border: 1px solid rgba(255, 107, 157, 0.3);
+    border-radius: 12px;
 `
 
 const accountInitialValue={
@@ -93,7 +140,7 @@ const LoginDialog = ({open , setOpen}) => {
     const[login,setLogin]=useState(loginInitialValues);
     const[error,setError]=useState(false);
 
-    const {setAccount}=useContext(DataContext);
+    const {setAccount, setUser}=useContext(DataContext);
     const handleClose=()=>{
         setOpen(false);
         toggleAccount(accountInitialValue.login);
@@ -112,6 +159,11 @@ const LoginDialog = ({open , setOpen}) => {
         if(!response) return;
         handleClose();
         setAccount(signUp.firstname);
+        setUser({
+            username: signUp.username,
+            email: signUp.email,
+            firstname: signUp.firstname
+        });
     }
 
     const onValueChange=(e)=>{
@@ -122,7 +174,13 @@ const LoginDialog = ({open , setOpen}) => {
         console.log(response);
         if(response.status===200){
             handleClose();
-            setAccount(response.data.data.firstname);
+            const userData = response.data.data;
+            setAccount(userData.firstname);
+            setUser({
+                username: userData.username,
+                email: userData.email,
+                firstname: userData.firstname
+            });
         }
         else{
             setError(true);
