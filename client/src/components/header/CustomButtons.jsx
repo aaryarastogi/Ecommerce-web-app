@@ -65,8 +65,7 @@ const CustomButtons = () => {
             account ? <Profile account={account} setAccount={setAccount} setUser={setUser}/> :
             <LoginButton variant='contained' onClick={()=>handleLogin()}>Login</LoginButton>
         }
-        <Typography style={{marginTop: 3 , width:135}}>What's new</Typography>
-        <Typography style={{marginTop: 3 , width:135}}>Deals</Typography>
+        <Container style={{marginTop: 3 , width:135}} to='/orders'>My Orders</Container>
         <Container to='/cart'>
             <Badge badgeContent={cartItems?.length} color='secondary'>
                 <ShoppingCartIcon/>

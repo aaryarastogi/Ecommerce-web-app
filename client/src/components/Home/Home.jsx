@@ -33,11 +33,9 @@ const Home = () => {
   
   return (
     <Fragment>
-        <Navbar/>
         <Container>
           <Banner/>
           <MidSlide products={products} title="Deal of the Day" timer={true}/>
-          <MidSection/>
           <Slide products={products} title="Discounts For You" timer={false}/>
           <Brands/>
           <Slide products={products} title="Suggested Items" timer={false}/>

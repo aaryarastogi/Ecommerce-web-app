@@ -33,9 +33,6 @@ const Profile=({account , setAccount, setUser})=>{
                 open={Boolean(open)}
                 onClose={handleClose}
                 >
-                <MenuItem component={Link} to="/orders" onClick={handleClose}>
-                    <Typography>My Orders</Typography>
-                </MenuItem>
                 <MenuItem onClick={()=>{handleClose();logoutUser();}}>
                     <PowerSettingsNewIcon color="primary" fontSize="small"/>
                     <Logout>Logout</Logout>

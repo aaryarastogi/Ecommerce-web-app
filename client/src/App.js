@@ -16,7 +16,7 @@ function App() {
     <DataProvider>
       <BrowserRouter>
         <Header/>
-        <Box style={{marginTop:'80px'}}>
+        <Box>
           <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/product/:id' element={<DetailView/>} />
