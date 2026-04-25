@@ -76,6 +76,11 @@ const Cart=()=>{
 
     const checkoutHandler=async()=>{
         try {
+            if(!user) {
+                alert("You need to login/signup previously to place an order.");
+                return;
+            }
+
             if (cartItems.length === 0) {
                 alert("Your cart is empty!");
                 return;

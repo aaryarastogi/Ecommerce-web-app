@@ -1,5 +1,4 @@
-import styled from '@emotion/styled'
-import { InputBase , Box, List, ListItem} from '@mui/material'
+import { styled, InputBase , Box, List, ListItem} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect, useState } from 'react'
 import {useSelector , useDispatch} from 'react-redux';
@@ -16,25 +15,30 @@ const InputBaseSearch=styled(InputBase)`
     }
 `
 
-const SearchContainer=styled(Box)`
-    background:rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    width:100%;
-    border-radius:15px;
-    margin-left:10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    &:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 107, 157, 0.3);
-        box-shadow: 0 6px 30px rgba(255, 107, 157, 0.2);
+const SearchContainer=styled(Box)(({theme}) => ({
+    background:'rgba(255, 255, 255, 0.05)',
+    backdropFilter: 'blur(10px)',
+    width:'100%',
+    borderRadius:'15px',
+    marginLeft:'10px',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
+    transition: 'all 0.3s ease',
+    '&:hover': {
+        background: 'rgba(255, 255, 255, 0.08)',
+        borderColor: 'rgba(255, 107, 157, 0.3)',
+        boxShadow: '0 6px 30px rgba(255, 107, 157, 0.2)',
+    },
+    '&:focus-within': {
+        background: 'rgba(255, 255, 255, 0.1)',
+        borderColor: 'rgba(255, 107, 157, 0.5)',
+    },
+    [theme.breakpoints.down('md')]: {
+        marginLeft: 0,
+        marginTop: '10px',
+        marginBottom: '10px',
     }
-    &:focus-within {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 107, 157, 0.5);
-    }
-`
+}));
 
 const SearchIconWrapper=styled(Box)`
     color:#ff6b9d;
@@ -48,28 +52,32 @@ const SearchIconWrapper=styled(Box)`
     }
 `
 
-const ListStyling=styled(List)`
-  position:absolute;
-  background: rgba(26, 31, 58, 0.95);
-  backdrop-filter: blur(20px);
-  color: white;
-  margin-top:36px;
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-  max-height: 400px;
-  overflow-y: auto;
-  & .MuiListItem-root {
-    transition: all 0.2s ease;
-    border-radius: 8px;
-    margin: 4px 8px;
-    &:hover {
-      background: rgba(255, 107, 157, 0.1);
-      transform: translateX(5px);
+const ListStyling=styled(List)(({theme}) => ({
+  position:'absolute',
+  background: 'rgba(26, 31, 58, 0.95)',
+  backdropFilter: 'blur(20px)',
+  color: 'white',
+  marginTop:'36px',
+  borderRadius: '15px',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+  zIndex: 1000,
+  maxHeight: '400px',
+  overflowY: 'auto',
+  width: '100%',
+  '& .MuiListItem-root': {
+    transition: 'all 0.2s ease',
+    borderRadius: '8px',
+    margin: '4px 8px',
+    '&:hover': {
+      background: 'rgba(255, 107, 157, 0.1)',
+      transform: 'translateX(5px)',
     }
+  },
+  [theme.breakpoints.down('md')]: {
+      marginTop: '45px',
   }
-`
+}));
 
 const Search = () => {
   const [text,setText]=useState('');
@@ -97,7 +105,7 @@ const Search = () => {
           text && 
               <ListStyling>
                 {
-                  products.filter(product => product.title.longTitle.toLowerCase().includes(text.toLowerCase())).map(product=>(
+                  products && Array.isArray(products) && products.filter(product => product.title.longTitle.toLowerCase().includes(text.toLowerCase())).map(product=>(
                     <ListItem>
                       <Link
                         to={`/product/${product.id}`}

@@ -21,29 +21,31 @@ const Container=styled(Box)`
 `
 
 const Home = () => {
-  const {products} = useSelector(state=>state.getProducts) //this getProducts is a reducer which i make in store.js
-  //object destructuring method
-  console.log(products);
-
+  const {products} = useSelector(state=>state.getProducts) 
+  
   const dispatch=useDispatch();
 
   useEffect(()=>{
-    dispatch(getProducts()); //this getProducts is a function 
-  },[dispatch]) //empty array is passed to show componentDidMount
+    dispatch(getProducts()); 
+  },[dispatch]) 
   
+  // Safe slicing of products array
+  const deals = products ? products.slice(0, 7) : [];
+  const discounts = products ? products.slice(7, 12) : [];
+  const suggested = products ? products.slice(12, 16) : [];
+
   return (
     <Fragment>
         <Container>
           <Banner/>
-          <MidSlide products={products} title="Deal of the Day" timer={true}/>
-          <Slide products={products} title="Discounts For You" timer={false}/>
-          <Brands/>
-          <Slide products={products} title="Suggested Items" timer={false}/>
-          {/* <Slide products={products} title="Top Selection" timer={false}/>
-          <Slide products={products} title="Recommended Items" timer={false}/>
-          <Slide products={products} title="Trending Offers"timer={false}/> */}
-          {/* <Slide products={products} title="Season's Top Picks" timer={false}/>
-          <Slide products={products} title="Top Deals on Accessories" timer={false}/> */}
+          {products && products.length > 0 && (
+            <>
+              <MidSlide products={deals} title="Deal of the Day" timer={true}/>
+              <Slide products={discounts} title="Discounts For You" timer={false}/>
+              <Brands/>
+              <Slide products={suggested} title="Suggested Items" timer={false}/>
+            </>
+          )}
           <Footer/>
         </Container>
     </Fragment>

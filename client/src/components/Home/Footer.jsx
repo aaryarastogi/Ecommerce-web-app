@@ -21,12 +21,22 @@ const Heading=styled(Typography)(({theme})=>({
     marginBottom:'20px',
     fontSize:32,
     fontWeight:600,
+    [theme.breakpoints.down('md')]: {
+        marginLeft: '20px',
+        fontSize: 28,
+        textAlign: 'center',
+    }
 }))
 
 const Text=styled(Typography)(({theme})=>({
     marginLeft:'40px',
     fontSize:16,
-    width:'75%'
+    width:'75%',
+    [theme.breakpoints.down('md')]: {
+        marginLeft: '20px',
+        width: '90%',
+        textAlign: 'center',
+    }
 }))
 
 const Container=styled(List)(({theme})=>({
@@ -35,15 +45,19 @@ const Container=styled(List)(({theme})=>({
     fontSize:16,
     width:'75%',
     [theme.breakpoints.down('md')]:{
-        marginLeft:30,
-        marginTop:0,
+        marginLeft: 0,
+        marginTop: 20,
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     }
 }))
 
 const Footer=()=>{
     return(
         <Component>
-            <Grid container lg={12} md={12} sm={12} xs={12} style={{justifyContent:'space-around'}}>
+            <Grid container style={{justifyContent:'space-around'}}>
                 <Grid item lg={4} md={4} sm={12} xs={12}>
                     <Box>
                         <Heading>Cartify</Heading>

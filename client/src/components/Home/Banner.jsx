@@ -61,9 +61,15 @@ const HeroTitle = styled(Typography)(({theme}) => ({
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
     letterSpacing: '-2px',
+    [theme.breakpoints.down('lg')]: {
+        fontSize: '52px',
+    },
     [theme.breakpoints.down('md')]: {
         fontSize: '40px',
         letterSpacing: '-1px',
+    },
+    [theme.breakpoints.down('sm')]: {
+        fontSize: '32px',
     }
 }));
 
@@ -78,6 +84,10 @@ const HeroSubtitle = styled(Typography)(({theme}) => ({
     color: 'rgba(255, 255, 255, 0.9)',
     [theme.breakpoints.down('md')]: {
         fontSize: '18px',
+        marginBottom: '30px',
+    },
+    [theme.breakpoints.down('sm')]: {
+        fontSize: '16px',
     }
 }));
 
@@ -112,6 +122,12 @@ const FeaturesContainer = styled(Box)(({theme}) => ({
     [theme.breakpoints.down('md')]: {
         marginTop: '30px',
         gap: '20px',
+        justifyContent: 'center',
+    },
+    [theme.breakpoints.down('sm')]: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: '15px',
     }
 }));
 
@@ -151,7 +167,7 @@ const Banner = () => {
                 <HeroSubtitle>
                     Discover premium quality products at unbeatable prices. Shop with confidence and enjoy fast, secure delivery to your doorstep.
                 </HeroSubtitle>
-                <Link to="/" style={{textDecoration: 'none'}}>
+                <Link to="/products" style={{textDecoration: 'none'}}>
                     <CTAButton variant="contained" startIcon={<ShoppingBagIcon />}>
                         Shop Now
                     </CTAButton>

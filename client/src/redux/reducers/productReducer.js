@@ -6,7 +6,7 @@ export const getProductsReducer = (state = {products: []}, action) => {
         case actionTypes.GET_PRODUCT_SUCCESS:
             return { products: action.payload }
         case actionTypes.GET_PRODUCT_FAIL:
-            return { error: action.payload }
+            return { products: [], error: action.payload }
         default:
             return state
     }

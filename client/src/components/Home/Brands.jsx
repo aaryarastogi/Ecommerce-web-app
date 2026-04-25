@@ -1,6 +1,5 @@
-import styled from "@emotion/styled";
+import { styled, Box, Divider, Typography } from "@mui/material"
 import React from 'react';
-import { Box, Divider, Typography } from "@mui/material"
 import { brands } from "../../constants/data";
 
 
@@ -30,8 +29,8 @@ const Brands =()=>{
             <Heading>Brands</Heading>
             <Container>
             {
-                brands.map(brand=>(
-                    <Component>
+                brands && brands.map((brand, index)=>(
+                    <Component key={index}>
                         <img src={brand.url} style={{width:'72px' , lineHeight:32}} alt='company'></img>
                     </Component>
                 ))

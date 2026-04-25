@@ -4,9 +4,10 @@ import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions/cartActions";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { payUsingPaytm } from "../../service/api";
 import { post } from "../../utils/paytm";
+import { DataContext } from "../../context/DataProvider";
 
 //styling
 const LeftContainer=styled(Box)(({theme})=>({
@@ -42,10 +43,15 @@ const ActionItem=({product})=>{
     const dispatch=useDispatch();
 
     const[quantiy , setQuantity] = useState(1);
+    const { account } = useContext(DataContext);
 
     const {id} = product;
 
     const addItemToCart=()=>{
+        if(!account) {
+            alert("You need to login/signup to add items to cart.");
+            return;
+        }
         dispatch(addToCart(id , quantiy));
         navigate('/cart');
     }

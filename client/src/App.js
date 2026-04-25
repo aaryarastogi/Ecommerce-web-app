@@ -8,6 +8,7 @@ import DetailView from './components/Details/DetailView';
 import Cart from './components/cart/Cart';
 import PaymentSuccess from './components/payment/PaymentSuccess';
 import Orders from './components/orders/Orders';
+import AllProducts from './components/Home/AllProducts';
 import axios from 'axios';
 
 
@@ -23,6 +24,7 @@ function App() {
             <Route path='/cart' element={<Cart/>} />
             <Route path='/paymentsuccess' element={<PaymentSuccess/>}/>
             <Route path='/orders' element={<Orders/>}/>
+            <Route path='/products' element={<AllProducts/>} />
           </Routes>
         </Box>
       </BrowserRouter>

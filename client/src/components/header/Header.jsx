@@ -11,8 +11,10 @@ import {
   ListItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import Search from "./Search";
 import CustomButtons from "./CustomButtons";
+import LoginDialog from "../login/LoginDialog";
 import { Link } from "react-router-dom";
 
 const StyledHeader = styled(AppBar)`
@@ -65,12 +67,25 @@ const MenuButton = styled(IconButton)(({ theme }) => ({
 }));
 
 const MobileDrawerBox = styled(Box)`
-  width: 250px;
-  padding: 20px;
+  width: 300px;
+  background: #0a0e27;
+  height: 100%;
+  color: white;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+`;
+
+const DrawerHeader = styled(Box)`
+  display: flex;
+  align-items: center;
+  padding: 25px 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
 `;
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -91,13 +106,32 @@ const Header = () => {
         </MenuButton>
 
         {/* Drawer for Mobile */}
-        <Drawer open={open} onClose={handleClose}>
+        <Drawer 
+          open={open} 
+          onClose={handleClose}
+          PaperProps={{
+            sx: {
+              background: 'transparent',
+              boxShadow: 'none'
+            }
+          }}
+        >
           <MobileDrawerBox>
-            <List>
-              <ListItem>
-                <CustomButtons />
-              </ListItem>
-            </List>
+            <DrawerHeader>
+              <LogoText to="/" onClick={handleClose} style={{ margin: 0 }}>
+                Cartify
+              </LogoText>
+              <IconButton onClick={handleClose} color="inherit">
+                <CloseIcon />
+              </IconButton>
+            </DrawerHeader>
+            <Box sx={{ padding: '20px' }}>
+              <List sx={{ width: '100%' }}>
+                <ListItem disablePadding>
+                  <CustomButtons closeDrawer={handleClose} setLoginOpen={setLoginOpen} />
+                </ListItem>
+              </List>
+            </Box>
           </MobileDrawerBox>
         </Drawer>
 
@@ -113,8 +147,10 @@ const Header = () => {
 
         {/* Desktop Buttons */}
         <CustomButtonWrapper>
-          <CustomButtons />
+          <CustomButtons setLoginOpen={setLoginOpen} />
         </CustomButtonWrapper>
+        
+        <LoginDialog open={loginOpen} setOpen={setLoginOpen} />
       </Toolbar>
     </StyledHeader>
   );

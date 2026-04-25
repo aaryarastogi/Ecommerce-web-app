@@ -21,8 +21,6 @@ const PORT=8000;
 const USERNAME=process.env.DB_USERNAME;
 const PASSWORD=process.env.DB_PASSWORD;
 
-Connection(USERNAME,PASSWORD);
-
 export const instance = new Razorpay({
     key_id: process.env.RAZORPAY_KEY,
     key_secret: process.env.RAZORPAY_SECRET,
@@ -36,9 +34,17 @@ app.get("/api/getkey",(req,res)=>res.status(200).json({
   key: process.env.RAZORPAY_KEY
 }))
 
-//creating server
-app.listen(PORT,()=>console.log(`Server is succesfully running on port ${PORT}hello`));
-defaultData();
+// Wait for database connection before starting the server
+const startServer = async () => {
+    await Connection(USERNAME, PASSWORD);
+    
+    app.listen(PORT, () => {
+        console.log(`Server is successfully running on port ${PORT}`);
+        defaultData(); // Seed data after connection
+    });
+};
+
+startServer();
 
 
 

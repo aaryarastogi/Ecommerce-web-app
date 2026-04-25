@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
-import {Box, Button, Dialog, TextField, Typography, InputAdornment, IconButton, Fade} from '@mui/material'
-import {styled} from '@mui/material'
+import { Box, Button, Dialog, TextField, Typography, InputAdornment, IconButton, Fade, Drawer, useMediaQuery, useTheme } from '@mui/material'
+import { styled } from '@mui/material'
 import { authenticateSignUp  , authenticateLogin} from '../../service/api'
 import { DataContext } from '../../context/DataProvider'
 import { 
@@ -48,11 +48,11 @@ const Container=styled(Box)`
     }
     
     @media (max-width: 600px) {
-        width: calc(100vw - 20px);
-        max-width: calc(100vw - 20px);
+        width: 100vw !important;
+        max-width: 100vw !important;
         height: auto;
         max-height: 95vh;
-        border-radius: 16px;
+        border-radius: 24px 24px 0 0;
         overflow-x: hidden;
         overflow-y: auto;
     }
@@ -362,8 +362,8 @@ const CloseButton = styled(IconButton)`
     }
     
     @media (max-width: 600px) {
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
         width: 32px;
         height: 32px;
         
@@ -372,6 +372,20 @@ const CloseButton = styled(IconButton)`
         }
     }
 `
+
+const Puller = styled(Box)`
+    width: 40px;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    position: absolute;
+    top: 12px;
+    left: calc(50% - 20px);
+    display: none;
+    @media (max-width: 600px) {
+        display: block;
+    }
+`;
 
 const accountInitialValue={
     login:{
@@ -405,6 +419,9 @@ const LoginDialog = ({open , setOpen}) => {
     const[showPassword,setShowPassword]=useState(false);
 
     const {setAccount, setUser}=useContext(DataContext);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
     const handleClose=()=>{
         setOpen(false);
         toggleAccount(accountInitialValue.login);
@@ -466,27 +483,19 @@ const LoginDialog = ({open , setOpen}) => {
         setShowPassword(!showPassword);
     };
 
-  return (
-    <Dialog 
-        open={open} 
-        onClose={handleClose} 
-        PaperProps={{
-            sx:{
-                maxWidth:'unset',
-                background: 'transparent',
-                boxShadow: 'none',
-                margin: { xs: '10px', sm: '20px' },
-                maxHeight: { xs: '95vh', sm: '90vh' },
-                width: { xs: 'calc(100% - 20px)', sm: 'auto' },
-                overflowX: 'hidden'
-            }
-        }}
-        TransitionComponent={Fade}
-        TransitionProps={{ timeout: 300 }}
-        fullWidth
-        maxWidth={false}
-    >
-        <Container>
+    const dialogContent = (
+        <Container sx={{ 
+            height: isMobile ? 'auto' : '75vh',
+            width: isMobile ? '100vw !important' : '95vh',
+            maxWidth: isMobile ? '100vw !important' : 'unset',
+            borderRadius: isMobile ? '24px 24px 0 0' : '24px',
+            border: isMobile ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
+            boxShadow: isMobile ? 'none' : '0 20px 60px rgba(0, 0, 0, 0.5)',
+            maxHeight: isMobile ? '90vh' : 'unset',
+            margin: isMobile ? '0 !important' : 'auto',
+            padding: isMobile ? '0 !important' : 'auto'
+        }}>
+            <Puller />
             <CloseButton onClick={handleClose} aria-label="close">
                 <Close />
             </CloseButton>
@@ -501,7 +510,10 @@ const LoginDialog = ({open , setOpen}) => {
                 overflowY: { xs: 'auto', md: 'hidden' }
             }}>
             {/* leftpart */}
-            <Image>
+            <Image sx={{ 
+                display: isMobile ? 'none' : 'flex',
+                minWidth: { md: '300px' }
+            }}>
                 <IconWrapper>
                     <ShoppingBag />
                 </IconWrapper>
@@ -512,7 +524,7 @@ const LoginDialog = ({open , setOpen}) => {
             {
                 account.view==='login' ? 
                 <Wrapper>
-                <Heading style={{fontSize: '26px', marginBottom: '8px', marginTop: '0'}}>Welcome Back</Heading>
+                <Heading style={{fontSize: '26px', marginBottom: '8px', marginTop: isMobile ? '10px' : '0'}}>Welcome Back</Heading>
                 <SubHeading style={{marginBottom: '10px'}}>Sign in to continue to Cartify</SubHeading>
                 
                 <TextField 
@@ -571,7 +583,7 @@ const LoginDialog = ({open , setOpen}) => {
             </Wrapper>
             :
             <Wrapper>
-                <Heading style={{fontSize: '26px', marginBottom: '8px', marginTop: '0'}}>Create Account</Heading>
+                <Heading style={{fontSize: '26px', marginBottom: '8px', marginTop: isMobile ? '10px' : '0'}}>Create Account</Heading>
                 <SubHeading style={{marginBottom: '10px'}}>Join Cartify and start shopping</SubHeading>
                 
                 <TextField 
@@ -691,8 +703,56 @@ const LoginDialog = ({open , setOpen}) => {
             }
             </Box>
         </Container>
-    </Dialog>
-  )
+    );
+
+    if (isMobile) {
+        return (
+            <Drawer
+                anchor="bottom"
+                open={open}
+                onClose={handleClose}
+                PaperProps={{
+                    sx: {
+                        background: '#0a0e27',
+                        borderRadius: '24px 24px 0 0',
+                        overflow: 'visible',
+                        maxHeight: '90vh',
+                        width: '100vw !important',
+                        maxWidth: '100vw !important',
+                        margin: '0 !important',
+                        left: '0 !important',
+                        right: '0 !important'
+                    }
+                }}
+            >
+                {dialogContent}
+            </Drawer>
+        );
+    }
+
+    return (
+        <Dialog 
+            open={open} 
+            onClose={handleClose} 
+            PaperProps={{
+                sx:{
+                    maxWidth:'unset',
+                    background: 'transparent',
+                    boxShadow: 'none',
+                    margin: { xs: '10px', sm: '20px' },
+                    maxHeight: { xs: '95vh', sm: '90vh' },
+                    width: { xs: 'calc(100% - 20px)', sm: 'auto' },
+                    overflowX: 'hidden'
+                }
+            }}
+            TransitionComponent={Fade}
+            TransitionProps={{ timeout: 300 }}
+            fullWidth
+            maxWidth={false}
+        >
+            {dialogContent}
+        </Dialog>
+    );
 }
 
 export default LoginDialog
